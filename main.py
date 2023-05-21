@@ -67,8 +67,16 @@ def draw(window, background, bg_image,player):
         window.blit(bg_image,tile)
 
     player.draw(window)
-    
+
     pygame.display.update()
+
+def handle_move(player, objects):
+    keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_LEFT]:
+        player.move_left(PLAYER_VEL)
+    if keys[pygame.K_RIGHT]:
+        player.move_right(PLAYER_VEL)
 
 
 def main(window):
