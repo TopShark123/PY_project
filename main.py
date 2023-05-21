@@ -6,7 +6,7 @@ from os import listdir
 from os.path import isfile, join
 pygame.init()
 
-pygame.display.set_caption("Platformer")
+pygame.display.set_caption("Py_game")
 
 WIDTH, HEIGHT = 800, 600
 FPS = 60
