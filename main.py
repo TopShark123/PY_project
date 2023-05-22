@@ -17,6 +17,8 @@ COLOR = (255,0,0)
 
 class Player(pygame.sprite.Sprite):
     
+    GRAVITY = 1 #начална гравитация
+    
 
     def __init__(self, x,y,width,height):
         self.rect = pygame.Rect(x, y, width, height)
@@ -25,7 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.mask = None
         self.direction = "left"
         self.animation_count = 0
-        self.fall_count = 0
+        self.fall_count = 0 #за да се регулира ускорението при падане (по- голям fall.count-> повече ускорение)
         self.jump_count = 0
         self.hit = False
         self.hit_count = 0
@@ -48,6 +50,7 @@ class Player(pygame.sprite.Sprite):
 
     
     def loop(self, fps):
+        self.y_vel += min(1, (self.fall_count / fps) * self.GRAVITY) #изчисляване на земното ускорение 
         self.move(self.x_vel, self.y_vel)
 
     def draw(self,win):
