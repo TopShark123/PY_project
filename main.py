@@ -30,6 +30,10 @@ class Player(pygame.sprite.Sprite):
         self.hit = False
         self.hit_count = 0
 
+    def move(self,dx,dy):
+        self.rect.x += dx
+        self.rect.y += dy
+
     def move_left(self, vel):
         self.x_vel = -vel
         if self.direction != "left":
