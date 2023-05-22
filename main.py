@@ -44,7 +44,6 @@ class Player(pygame.sprite.Sprite):
 
     
     def loop(self, fps):
-        self.y_vel += min(1, (self.fall_count / fps) * self.GRAVITY)
         self.move(self.x_vel, self.y_vel)
 
     def draw(self,win):
@@ -73,6 +72,8 @@ def draw(window, background, bg_image,player):
 def handle_move(player, objects):
     keys = pygame.key.get_pressed()
 
+
+    player.x_vel = 0
     if keys[pygame.K_LEFT]:
         player.move_left(PLAYER_VEL)
     if keys[pygame.K_RIGHT]:
@@ -93,6 +94,8 @@ def main(window):
                 run = False
                 break
 
+        player.loop(FPS)
+        handle_move(player)
         draw(window, background, bg_color,player)
     pygame.quit()
     quit()
