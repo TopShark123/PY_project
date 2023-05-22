@@ -73,7 +73,7 @@ def draw(window, background, bg_image,player):
 
     pygame.display.update()
 
-def handle_move(player, objects):
+def handle_move(player):
     keys = pygame.key.get_pressed()
 
 
