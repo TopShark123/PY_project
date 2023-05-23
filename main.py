@@ -70,6 +70,9 @@ def get_background(name):
 
     return tiles,image
 
+def flip(sprites):
+    return [pygame.transform.flip(sprite, True, False) for sprite in sprites]
+
 def draw(window, background, bg_image,player):
     for tile in background:
         window.blit(bg_image,tile)
