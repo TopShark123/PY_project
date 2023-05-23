@@ -53,6 +53,8 @@ class Player(pygame.sprite.Sprite):
         self.y_vel += min(1, (self.fall_count / fps) * self.GRAVITY) #изчисляване на земното ускорение 
         self.move(self.x_vel, self.y_vel)
 
+        self.fall_count += 1
+
     def draw(self,win):
         pygame.draw.rect(win, COLOR, self.rect)
 
@@ -91,7 +93,7 @@ def main(window):
     clock = pygame.time.Clock()
     background, bg_color= get_background("Green.png")
 
-    player = Player(0,0,50,50)
+    player = Player(100,100,50,50)
     run = True
     while run:
         clock.tick(FPS)
