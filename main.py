@@ -94,6 +94,7 @@ class Player(pygame.sprite.Sprite):
         sprite_index = (self.animation_count // self.ANIMATION_DELAY) % len(sprites)
         self.sprite = sprites[sprite_index]
         self.animation_count +=1
+        self.update()
 
     def update(self):
         self.rect = self.sprite.get_rect(topleft=(self.rect.x, self.rect.y))
@@ -103,7 +104,18 @@ class Player(pygame.sprite.Sprite):
     def draw(self,win):
         win.blit(self.sprite,(self.rect.x,self.rect.y))
 
-    
+ #---------------------------------------------------------------------------------------------
+
+class Object(pygame.sprite.Sprite):
+    def __init__(self, x, y, width, height, name=None):
+        super().__init__()
+        self.rect = pygame.Rect(x, y, width, height)
+        self.image = pygame.Surface((width, height), pygame.SRCALPHA)
+        self.width = width
+        self.height = height
+        self.name = name
+
+#-------------------------------------------------------------------------------------------------   
 def get_background(name):
     image = pygame.image.load(join("assets","Background",name))
     _, _, width, height = image.get_rect()
