@@ -77,6 +77,15 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
     path = join("assets", dir1, dir2)
     images = [f for f in listdir(path) if isfile(join(path, f))]
 
+    all_sprites = {}
+
+    for image in images:
+        sprite_sheet= pygame.image.load(join(path,image)).convert_alpha()
+
+        sprites = []
+
+        for i in range(sprite_sheet.get_width()//width)
+
 def draw(window, background, bg_image,player):
     for tile in background:
         window.blit(bg_image,tile)
