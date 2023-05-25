@@ -14,6 +14,14 @@ PLAYER_VEL = 5
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 COLOR = (255,0,0)
 
+def get_block(size):
+    path = join("assets", "Terrain", "Terrain.png")
+    image = pygame.image.load(path).convert_alpha()
+    surface = pygame.Surface((size, size), pygame.SRCALPHA, 32)
+    rect = pygame.Rect(96, 0, size, size)
+    surface.blit(image, (0, 0), rect)
+    return pygame.transform.scale2x(surface)
+
 def flip(sprites):
     return [pygame.transform.flip(sprite, True, False) for sprite in sprites]
 
