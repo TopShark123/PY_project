@@ -123,8 +123,8 @@ class Object(pygame.sprite.Sprite):
         self.height = height
         self.name = name
 
-    def draw(self, win, offset_x):
-        win.blit(self.image, (self.rect.x - offset_x, self.rect.y))
+    def draw(self, win):
+        win.blit(self.image, (self.rect.x, self.rect.y))
 
 
 #-------------------------------------------------------------------------------------------------
@@ -177,7 +177,11 @@ def main(window):
     clock = pygame.time.Clock()
     background, bg_color= get_background("Green.png")
 
+    block_size = 96
+
     player = Player(100,100,50,50)
+    floor = [Block(i * block_size, HEIGHT - block_size, block_size)
+             for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]   
     run = True
     while run:
         clock.tick(FPS)
@@ -189,7 +193,7 @@ def main(window):
 
         player.loop(FPS)
         handle_move(player)
-        draw(window, background, bg_color,player)
+        draw(window, background, bg_color,player,floor)
     pygame.quit()
     quit()
 
