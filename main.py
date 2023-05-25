@@ -150,9 +150,12 @@ def get_background(name):
 
     return tiles,image
 
-def draw(window, background, bg_image,player):
+def draw(window, background, bg_image, player, objects):
     for tile in background:
-        window.blit(bg_image,tile)
+        window.blit(bg_image, tile)
+
+    for obj in objects:
+        obj.draw(window)
 
     player.draw(window)
 
