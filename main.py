@@ -152,10 +152,10 @@ class Object(pygame.sprite.Sprite):
         self.height = height
         self.name = name
 
-    def draw(self, win):
-        win.blit(self.image, (self.rect.x, self.rect.y))
+    def draw(self, win, offset_x):
+        win.blit(self.image, (self.rect.x - offset_x, self.rect.y))
 
-
+ 
 #-------------------------------------------------------------------------------------------------
 
 
@@ -185,7 +185,7 @@ def draw(window, background, bg_image, player, objects,offset_x):
 
     for obj in objects:
         obj.draw(window,offset_x)
-
+ 
     player.draw(window,offset_x)
 
     pygame.display.update()
@@ -245,7 +245,7 @@ def main(window):
 
         player.loop(FPS)
         handle_move(player,floor)
-        draw(window, background, bg_color,player,floor)
+        draw(window, background, bg_color,player,floor,offset_x)
 
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width) and player.x_vel > 0) or (
                 (player.rect.left - offset_x <= scroll_area_width) and player.x_vel < 0):
