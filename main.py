@@ -89,6 +89,12 @@ class Player(pygame.sprite.Sprite):
         self.y_vel += min(1, (self.fall_count / fps) * self.GRAVITY) #изчисляване на земното ускорение 
         self.move(self.x_vel, self.y_vel)
 
+        if self.hit:
+            self.hit_count +=1
+        if self.hit_count > fps * 2:
+            self.hit = False
+
+
         self.fall_count += 1
         self.update_sprite()
 
@@ -102,6 +108,9 @@ class Player(pygame.sprite.Sprite):
         self.count = 0
         self.y_vel *= -1
 
+    def hit(self):
+        self.hit = True
+        self.hit_count = 0
     
     def jump(self):
         self.y_vel = -self.GRAVITY * 8
