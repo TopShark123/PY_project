@@ -298,6 +298,7 @@ def main(window):
                     player.jump()
 
         player.loop(FPS)
+        fire.loop()
         handle_move(player,objects)
         draw(window, background, bg_color,player,objects,offset_x)
 
