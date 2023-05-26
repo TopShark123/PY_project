@@ -108,7 +108,7 @@ class Player(pygame.sprite.Sprite):
         self.count = 0
         self.y_vel *= -1
 
-    def hit(self):
+    def make_hit(self):
         self.hit = True
         self.hit_count = 0
     
