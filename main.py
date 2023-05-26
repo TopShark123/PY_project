@@ -245,6 +245,11 @@ def handle_move(player,objects):
         player.move_right(PLAYER_VEL)
 
     vertical_collide = handle_vertical_collision(player, objects, player.y_vel)
+    to_check = [collide_left, collide_right, *vertical_collide]
+
+    for obj in to_check:
+        if obj and obj.name == "fire":
+            player.make_hit()
 
 
 def handle_vertical_collision(player, objects, dy):
