@@ -53,7 +53,7 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 class Player(pygame.sprite.Sprite):
     
     GRAVITY = 1 #начална гравитация
-    SPRITES = load_sprite_sheets("MainCharacters", "MaskDude", 32, 32, True)
+    SPRITES = load_sprite_sheets("MainCharacters", "VirtualGuy", 32, 32, True)
     ANIMATION_DELAY = 5
 
 
@@ -298,20 +298,24 @@ def collide(player, objects, dx):
 
 def main(window):
     clock = pygame.time.Clock()
-    background, bg_color= get_background("Green.png")
-    
+    background, bg_color= get_background("Blue.png")
+
     block_size = 96
 
     player = Player(100,100,50,50)
 
     fire = Fire(100, HEIGHT - block_size - 64, 16, 32)
+    fire2 = Fire(500, HEIGHT - block_size - 64, 16, 32)
+    fire3 = Fire(1000,HEIGHT - block_size - 64, 16, 32)
+    fire2.on()
     fire.on()
+    fire3.on()
     floor = [Block(i * block_size, HEIGHT - block_size, block_size)
              for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
     objects = [*floor, Block(0, HEIGHT - block_size * 2, block_size),
                Block(block_size * 3, HEIGHT - block_size * 4, block_size),fire]
+
     
-    health_bar = HealthBar(250, 200, 300, 40, 100)
     offset_x = 0
     scroll_area_width = 200
     run = True
@@ -328,7 +332,6 @@ def main(window):
 
         player.loop(FPS)
         fire.loop()
-        health_bar.draw(window)
         handle_move(player,objects)
         draw(window, background, bg_color,player,objects,offset_x)
 
