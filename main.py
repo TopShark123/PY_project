@@ -177,6 +177,21 @@ class Block(Object):
 
 #------------------------------------------------------------------------------------
 
+class HealthBar():
+    def __init__(self, x, y, width, height, max_hp):
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.hp = max_hp
+        self.max_hp = max_hp
+        
+    def draw(self, surface):
+        ratio = self.hp / self.max_hp
+        pygame.draw.rect(window, "red", (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(window, "green", (self.x, self.y, self.width * ratio, self.height))
+
+#------------------------------------------------------------------------------------
 class Fire(Object):
     ANIMATION_DELAY = 3
 
@@ -284,7 +299,7 @@ def collide(player, objects, dx):
 def main(window):
     clock = pygame.time.Clock()
     background, bg_color= get_background("Green.png")
-
+    
     block_size = 96
 
     player = Player(100,100,50,50)
@@ -295,12 +310,12 @@ def main(window):
              for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
     objects = [*floor, Block(0, HEIGHT - block_size * 2, block_size),
                Block(block_size * 3, HEIGHT - block_size * 4, block_size),fire]
-
     
+    health_bar = HealthBar(250, 200, 300, 40, 100)
     offset_x = 0
     scroll_area_width = 200
     run = True
-    while run:
+    while run:  
         clock.tick(FPS)
 
         for event in pygame.event.get():
@@ -308,11 +323,12 @@ def main(window):
                 run = False
                 break
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and player.jump_count < 2:
+                if event.key == pygame.K_UP and player.jump_count < 2:
                     player.jump()
 
         player.loop(FPS)
         fire.loop()
+        health_bar.draw(window)
         handle_move(player,objects)
         draw(window, background, bg_color,player,objects,offset_x)
 
