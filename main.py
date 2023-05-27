@@ -304,6 +304,8 @@ def main(window):
 
     player = Player(100,100,50,50)
 
+    health_bar = HealthBar(100, 100, 200, 100, 100)
+
     fire = Fire(100, HEIGHT - block_size - 64, 16, 32)
     
     fire.on()
@@ -332,6 +334,7 @@ def main(window):
         player.loop(FPS)
         fire.loop()
         handle_move(player,objects)
+        health_bar.draw()
         draw(window, background, bg_color,player,objects,offset_x)
 
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width) and player.x_vel > 0) or (
