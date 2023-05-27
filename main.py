@@ -305,11 +305,10 @@ def main(window):
     player = Player(100,100,50,50)
 
     fire = Fire(100, HEIGHT - block_size - 64, 16, 32)
-    fire2 = Fire(500, HEIGHT - block_size - 64, 16, 32)
-    fire3 = Fire(1000,HEIGHT - block_size - 64, 16, 32)
-    fire2.on()
+    
     fire.on()
-    fire3.on()
+    
+    
     floor = [Block(i * block_size, HEIGHT - block_size, block_size)
              for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
     objects = [*floor, Block(0, HEIGHT - block_size * 2, block_size),
