@@ -183,10 +183,10 @@ class HealthBar():
         self.y = y
         self.width = width
         self.height = height
-        self.hp = max_hp
+        self.hp = 50
         self.max_hp = max_hp
         
-    def draw(self, surface):
+    def draw(self):
         ratio = self.hp / self.max_hp
         pygame.draw.rect(window, "red", (self.x, self.y, self.width, self.height))
         pygame.draw.rect(window, "green", (self.x, self.y, self.width * ratio, self.height))
@@ -236,7 +236,7 @@ def get_background(name):
 
     return tiles,image
 
-def draw(window, background, bg_image, player, objects,offset_x):
+def draw(window, background, bg_image, player, objects,offset_x,bar):
     for tile in background:
         window.blit(bg_image, tile)
 
@@ -244,6 +244,7 @@ def draw(window, background, bg_image, player, objects,offset_x):
         obj.draw(window,offset_x)
  
     player.draw(window,offset_x)
+    bar.draw()
 
     pygame.display.update()
 
@@ -305,6 +306,10 @@ def main(window):
     player = Player(100,100,50,50)
 
     fire = Fire(100, HEIGHT - block_size - 64, 16, 32)
+
+    bar = HealthBar(0,0,100,20,100)
+
+    
     
     fire.on()
     
@@ -326,13 +331,15 @@ def main(window):
                 run = False
                 break
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_UP and player.jump_count < 2:
+                if event.key == pygame.K_UP or event.key == pygame.K_SPACE and player.jump_count < 2:
                     player.jump()
 
         player.loop(FPS)
         fire.loop()
         handle_move(player,objects)
-        draw(window, background, bg_color,player,objects,offset_x)
+        draw(window, background, bg_color,player,objects,offset_x,bar)
+        
+        
 
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width) and player.x_vel > 0) or (
                 (player.rect.left - offset_x <= scroll_area_width) and player.x_vel < 0):
