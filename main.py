@@ -338,9 +338,9 @@ def main(window):
         fire.loop()
         handle_move(player,objects)
         draw(window, background, bg_color,player,objects,offset_x,bar)
-        
-        
 
+
+    
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width) and player.x_vel > 0) or (
                 (player.rect.left - offset_x <= scroll_area_width) and player.x_vel < 0):
             offset_x += player.x_vel
