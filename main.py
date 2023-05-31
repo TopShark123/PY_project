@@ -53,7 +53,7 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 class Player(pygame.sprite.Sprite):
     
     GRAVITY = 1 #начална гравитация
-    SPRITES = load_sprite_sheets("MainCharacters", "NinjaFrog", 32, 32, True)
+    SPRITES = load_sprite_sheets("MainCharacters", "VirtualGuy", 32, 32, True)
     ANIMATION_DELAY = 5
 
 
@@ -183,7 +183,7 @@ class HealthBar():
         self.y = y
         self.width = width
         self.height = height
-        self.hp = 50
+        self.hp = max_hp
         self.max_hp = max_hp
         
     def draw(self):
@@ -224,6 +224,39 @@ class Fire(Object):
             self.animation_count = 0
 
 #--------------------------------------------------------------------------------------------
+
+
+class Fan(Object):
+    ANIMATION_DELAY = 3
+
+    def __init__(self, x, y, width, height):
+        super().__init__(x, y, width, height, "fan")
+        self.fan = load_sprite_sheets("Traps", "Fan", width, height)
+        self.image = self.fan["off"][0]
+        self.mask = pygame.mask.from_surface(self.image)
+        self.animation_count = 0
+        self.animation_name = "off"
+
+    def on(self):
+        self.animation_name = "on"
+
+    def off(self):
+        self.animation_name = "off"
+
+    
+    def loop(self):
+        sprites = self.fan[self.animation_name]
+        sprite_index = (self.animation_count //
+                        self.ANIMATION_DELAY) % len(sprites)
+        self.image = sprites[sprite_index]
+        self.animation_count += 1
+
+        self.rect = self.image.get_rect(topleft=(self.rect.x, self.rect.y))
+        self.mask = pygame.mask.from_surface(self.image)
+
+        if self.animation_count // self.ANIMATION_DELAY > len(sprites):
+            self.animation_count = 0
+ #-------------------------------------------------------------------------------------------
 def get_background(name):
     image = pygame.image.load(join("assets","Background",name))
     _, _, width, height = image.get_rect()
@@ -299,7 +332,7 @@ def collide(player, objects, dx):
 
 def main(window):
     clock = pygame.time.Clock()
-    background, bg_color= get_background("Blue.png")
+    background, bg_color= get_background("Yellow.png")
 
     block_size = 96
 
@@ -345,9 +378,9 @@ def main(window):
                        Block(block_size * 9, HEIGHT - block_size * 4, block_size),
 
                      
-                       Block(block_size * 11.75, HEIGHT- block_size * 7, block_size),
-                       Block(block_size * 11.75, HEIGHT- block_size * 6, block_size),
-                       Block(block_size * 11.75, HEIGHT- block_size * 5, block_size),
+                       Block(block_size * 11.60, HEIGHT- block_size * 7, block_size),
+                       Block(block_size * 11.60, HEIGHT- block_size * 6, block_size),
+                       Block(block_size * 11.60, HEIGHT- block_size * 5, block_size),
                        
                        Block(block_size * 14, HEIGHT- block_size * 3, block_size),
                        Block(block_size * 16, HEIGHT- block_size * 4, block_size),
@@ -357,7 +390,15 @@ def main(window):
                        Block(block_size * 23, HEIGHT- block_size * 4, block_size),
                        Block(block_size * 24, HEIGHT- block_size * 4, block_size),
                        
-                       Block(block_size * 28, HEIGHT- block_size * 4.5, block_size),fire,fire2,fire3,fire4,fire5]
+                       Block(block_size * 28, HEIGHT- block_size * 4.5, block_size),
+                       
+                       
+                       Block(block_size * 100, HEIGHT - block_size * 1, block_size),
+                       Block(block_size * 100, HEIGHT - block_size * 2, block_size),
+                       Block(block_size * 100, HEIGHT - block_size * 3, block_size), 
+                       Block(block_size * 100, HEIGHT - block_size * 4, block_size),
+                       Block(block_size * 100, HEIGHT - block_size * 5, block_size),
+                       Block(block_size * 100, HEIGHT - block_size * 6, block_size),fire,fire2,fire3,fire4,fire5]
 
     
     offset_x = 0
@@ -371,7 +412,7 @@ def main(window):
                 run = False
                 break
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE or event.key == pygame.K_UP and player.jump_count < 2:
+                if event.key == pygame.K_SPACE  and player.jump_count < 2:
                     player.jump()
 
         player.loop(FPS)
