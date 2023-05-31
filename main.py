@@ -53,7 +53,7 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 class Player(pygame.sprite.Sprite):
     
     GRAVITY = 1 #начална гравитация
-    SPRITES = load_sprite_sheets("MainCharacters", "MaskDude", 32, 32, True)
+    SPRITES = load_sprite_sheets("MainCharacters", "NinjaFrog", 32, 32, True)
     ANIMATION_DELAY = 5
 
 
@@ -309,7 +309,7 @@ def main(window):
     fire2 = Fire(1032,HEIGHT -block_size - 64,16,32)
     fire3 = Fire(2264,HEIGHT -4*block_size - 64,16,32)
     fire4 = Fire(2232,HEIGHT -4*block_size - 64,16,32)
-    fire5 = Fire(1064,HEIGHT -block_size - 64,16,32)
+    fire5 = Fire(2200,HEIGHT -4*block_size - 64,16,32)
 
    
 
@@ -329,7 +329,7 @@ def main(window):
              for i in range(10,18)]
     
     floor3 = [Block(i * block_size, HEIGHT - block_size, block_size)
-             for i in range(26,100)]
+             for i in range(33,100)]
     objects = [*floor,*floor2,*floor3, Block(0, HEIGHT - block_size * 2, block_size),
                        Block(0, HEIGHT - block_size * 3, block_size),
                        Block(0, HEIGHT - block_size * 4, block_size),
@@ -355,7 +355,9 @@ def main(window):
                        
                        Block(block_size * 22, HEIGHT- block_size * 4, block_size),
                        Block(block_size * 23, HEIGHT- block_size * 4, block_size),
-                       Block(block_size * 24, HEIGHT- block_size * 4, block_size),fire,fire2,fire3,fire4,fire5]
+                       Block(block_size * 24, HEIGHT- block_size * 4, block_size),
+                       
+                       Block(block_size * 28, HEIGHT- block_size * 4.5, block_size),fire,fire2,fire3,fire4,fire5]
 
     
     offset_x = 0
