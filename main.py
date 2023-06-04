@@ -2,6 +2,7 @@ import os
 import random
 import math
 import pygame
+import time
 from os import listdir
 from os.path import isfile, join
 pygame.init()
@@ -58,6 +59,12 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 
     return all_sprites
 
+def quit_game():
+    time.sleep(3)
+    pygame.quit()
+    quit()
+
+
 class Player(pygame.sprite.Sprite):
     
     GRAVITY = 1 #начална гравитация
@@ -78,11 +85,17 @@ class Player(pygame.sprite.Sprite):
         self.hit_count = 0
 
     def check(self):
-        if self.rect.y > 2000:
-            pygame.quit()
-            quit()
-
-
+        if self.rect.y > 1000:
+            font = pygame.font.Font('freesansbold.ttf', 32)
+            text = font.render('GeeksForGeeks', True,(255, 0, 0))
+            textRect = text.get_rect()
+            textRect.center = (WIDTH // 2, HEIGHT // 2)
+            font = pygame.font.SysFont("Arial", 72)
+            txtsurf = font.render("You are dead!", True, (255,0,0))
+            window.blit(txtsurf,(400 - txtsurf.get_width() // 2, 50 - txtsurf.get_height() // 2))
+            #quit_game()
+           
+            
     def move(self,dx,dy):
         self.rect.x += dx
         self.rect.y += dy
@@ -372,8 +385,19 @@ def main(window):
              for i in range(10,18)]
     
     floor3 = [Block(i * block_size, HEIGHT - block_size, block_size)
-             for i in range(33,100)]
-    objects = [*floor,*floor2,*floor3, Block(0, HEIGHT - block_size * 2, block_size),
+             for i in range(33,36)]
+    
+    floor4 = [Block(i * block_size, HEIGHT - block_size, block_size)
+             for i in range(46,47)]
+    
+    floor5 = [Block(i * block_size, HEIGHT - block_size, block_size)
+             for i in range(49,50)]
+    
+    floor6 = [Block(i * block_size, HEIGHT - block_size, block_size)
+             for i in range(52,100)]
+    
+
+    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6, Block(0, HEIGHT - block_size * 2, block_size),
                        Block(0, HEIGHT - block_size * 3, block_size),
                        Block(0, HEIGHT - block_size * 4, block_size),
                        Block(0, HEIGHT - block_size * 5, block_size),
@@ -401,6 +425,46 @@ def main(window):
                        Block(block_size * 24, HEIGHT- block_size * 4, block_size),
                        
                        Block(block_size * 28, HEIGHT- block_size * 4.5, block_size),
+
+                       Block(block_size * 35, HEIGHT- block_size * 4.0, block_size),
+                       Block(block_size * 37, HEIGHT- block_size * 2.5, block_size),
+                       Block(block_size * 40, HEIGHT- block_size * 5.0, block_size),
+                       Block(block_size * 41, HEIGHT- block_size * 5.0, block_size),
+
+
+                       Block(block_size * 35, HEIGHT- block_size * 4.0, block_size),
+                       Block(block_size * 37, HEIGHT- block_size * 2.5, block_size),
+                       Block(block_size * 39, HEIGHT- block_size * 5.0, block_size),
+                       Block(block_size * 40, HEIGHT- block_size * 5.0, block_size),
+
+                       Block(block_size * 46, HEIGHT- block_size, block_size),
+
+                       Block(block_size * 46, HEIGHT- block_size*2, block_size),
+                       Block(block_size * 46, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 46, HEIGHT- block_size*5, block_size),
+                       Block(block_size * 46, HEIGHT- block_size*6, block_size),
+                       Block(block_size * 46, HEIGHT- block_size*7, block_size),
+                       Block(block_size * 46, HEIGHT- block_size*8, block_size),
+
+
+                       Block(block_size * 49, HEIGHT- block_size*1, block_size),
+                       Block(block_size * 49, HEIGHT- block_size*2, block_size),
+                       Block(block_size * 49, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 49, HEIGHT- block_size*4, block_size),
+                       Block(block_size * 49, HEIGHT- block_size*6, block_size),
+                       Block(block_size * 49, HEIGHT- block_size*7, block_size),
+                       Block(block_size * 49, HEIGHT- block_size*8, block_size),
+
+
+                       Block(block_size * 52, HEIGHT- block_size*1, block_size),
+                       Block(block_size * 52, HEIGHT- block_size*2, block_size),
+                       Block(block_size * 52, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 52, HEIGHT- block_size*4, block_size),
+                       Block(block_size * 52, HEIGHT- block_size*5, block_size),
+                       Block(block_size * 52, HEIGHT- block_size*7, block_size),
+                       Block(block_size * 52, HEIGHT- block_size*8, block_size),
+                       
+                       
                        
                        
                        Block(block_size * 100, HEIGHT - block_size * 1, block_size),
