@@ -77,6 +77,12 @@ class Player(pygame.sprite.Sprite):
         self.hit = False
         self.hit_count = 0
 
+    def check(self):
+        if self.rect.y > 2000:
+            pygame.quit()
+            quit()
+
+
     def move(self,dx,dy):
         self.rect.x += dx
         self.rect.y += dy
@@ -271,6 +277,7 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
         obj.draw(window,offset_x)
  
         player.draw(window,offset_x)
+        player.check()
         bar.draw()
        
         
@@ -343,7 +350,7 @@ def main(window):
     fire3 = Fire(2264,HEIGHT -4*block_size - 64,16,32)
     fire4 = Fire(2232,HEIGHT -4*block_size - 64,16,32)
     fire5 = Fire(2200,HEIGHT -4*block_size - 64,16,32)
-    trap = Trap(100,400,320,640)
+    trap = Trap(300,HEIGHT - 110,1000,1000)
 
 
    
