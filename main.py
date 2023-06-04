@@ -22,6 +22,14 @@ def get_block(size):
     surface.blit(image, (0, 0), rect)
     return pygame.transform.scale2x(surface)
 
+def get_trap(width, height):
+    path = join("assets","Traps", "Spikes", "Idle.png")
+    image = pygame.image.load(path).convert_alpha()
+    surface = pygame.Surface((width, height), pygame.SRCALPHA, 32)
+    rect = pygame.Rect(96, 0, width, height)
+    surface.blit(image, (0, 0), rect)
+    return pygame.transform.scale2x(surface)
+
 def flip(sprites):
     return [pygame.transform.flip(sprite, True, False) for sprite in sprites]
 
@@ -224,39 +232,25 @@ class Fire(Object):
             self.animation_count = 0
 
 #--------------------------------------------------------------------------------------------
-
-
-class Fan(Object):
-    ANIMATION_DELAY = 3
-
+class Trap(Object):
     def __init__(self, x, y, width, height):
-        super().__init__(x, y, width, height, "fan")
-        self.fan = load_sprite_sheets("Traps", "Fan", width, height)
-        self.image = self.fan["off"][0]
+        super().__init__(x, y, width, height)
+        self.x = x
+        self.y = y
+        path = join("assets","Traps", "Spikes", "Idle.png")
+        image = pygame.image.load(path).convert_alpha()
+        surface = pygame.Surface((width, height), pygame.SRCALPHA, 32)
+        rect = pygame.Rect(96, 0, width, height)
+        surface.blit(image, (0, 0), rect)
+        self.image.blit(image, (0, 0))
         self.mask = pygame.mask.from_surface(self.image)
-        self.animation_count = 0
-        self.animation_name = "off"
+        pygame.transform.scale2x(surface)
 
-    def on(self):
-        self.animation_name = "on"
+    def draw(self, win, offset_x):
+        win.blit(self.image, (self.rect.x - offset_x, self.rect.y))
 
-    def off(self):
-        self.animation_name = "off"
+#--------------------------------------------------------------------------------------------
 
-    
-    def loop(self):
-        sprites = self.fan[self.animation_name]
-        sprite_index = (self.animation_count //
-                        self.ANIMATION_DELAY) % len(sprites)
-        self.image = sprites[sprite_index]
-        self.animation_count += 1
-
-        self.rect = self.image.get_rect(topleft=(self.rect.x, self.rect.y))
-        self.mask = pygame.mask.from_surface(self.image)
-
-        if self.animation_count // self.ANIMATION_DELAY > len(sprites):
-            self.animation_count = 0
- #-------------------------------------------------------------------------------------------
 def get_background(name):
     image = pygame.image.load(join("assets","Background",name))
     _, _, width, height = image.get_rect()
@@ -276,8 +270,12 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
     for obj in objects:
         obj.draw(window,offset_x)
  
-    player.draw(window,offset_x)
-    bar.draw()
+        player.draw(window,offset_x)
+        bar.draw()
+       
+        
+    
+
 
     pygame.display.update()
 
@@ -334,7 +332,9 @@ def main(window):
     clock = pygame.time.Clock()
     background, bg_color= get_background("Yellow.png")
 
-    block_size = 96
+    block_size = 94
+
+    #spike =Trap(100,HEIGHT - block_size,16,8)
 
     player = Player(100,100,50,50)
 
@@ -343,6 +343,8 @@ def main(window):
     fire3 = Fire(2264,HEIGHT -4*block_size - 64,16,32)
     fire4 = Fire(2232,HEIGHT -4*block_size - 64,16,32)
     fire5 = Fire(2200,HEIGHT -4*block_size - 64,16,32)
+    trap = Trap(100,400,320,640)
+
 
    
 
@@ -353,6 +355,7 @@ def main(window):
     fire3.on()
     fire4.on()
     fire5.on()
+   
     
     
     
@@ -397,8 +400,10 @@ def main(window):
                        Block(block_size * 100, HEIGHT - block_size * 2, block_size),
                        Block(block_size * 100, HEIGHT - block_size * 3, block_size), 
                        Block(block_size * 100, HEIGHT - block_size * 4, block_size),
-                       Block(block_size * 100, HEIGHT - block_size * 5, block_size),
-                       Block(block_size * 100, HEIGHT - block_size * 6, block_size),fire,fire2,fire3,fire4,fire5]
+                       Block(block_size * 100, HEIGHT  - block_size * 5, block_size),
+                       Block(block_size * 100, HEIGHT  - block_size * 6, block_size),
+
+                       fire,fire2,fire3,fire4,fire5,trap]
 
     
     offset_x = 0
@@ -421,9 +426,12 @@ def main(window):
         fire3.loop()
         fire4.loop()
         fire5.loop()
+        trap.draw(window,offset_x)
+        
        
         handle_move(player,objects)
         draw(window, background, bg_color,player,objects,offset_x,bar)
+        
 
 
     
