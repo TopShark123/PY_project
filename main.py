@@ -401,10 +401,13 @@ def main(window):
              for i in range(54,55)]
     
     floor7 = [Block(i * block_size, HEIGHT - block_size, block_size)
-             for i in range( 58,100)]
+             for i in range( 58,65)]
+    
+    floor8 = [Block(i * block_size, HEIGHT - block_size, block_size)
+             for i in range( 68,100)]
     
 
-    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6,*floor7, Block(0, HEIGHT - block_size * 2, block_size),
+    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6,*floor7, *floor8, Block(0, HEIGHT - block_size * 2, block_size),
                        Block(0, HEIGHT - block_size * 3, block_size),
                        Block(0, HEIGHT - block_size * 4, block_size),
                        Block(0, HEIGHT - block_size * 5, block_size),
@@ -479,6 +482,22 @@ def main(window):
                        Block(block_size * 55, HEIGHT- block_size*6, block_size),
                        Block(block_size * 55, HEIGHT- block_size*7, block_size),
                        Block(block_size * 55, HEIGHT- block_size*8, block_size),
+
+
+
+                       Block(block_size * 58, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 59, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 60, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 61, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 62, HEIGHT- block_size*3, block_size),  
+                       Block(block_size * 63, HEIGHT- block_size*3, block_size),
+
+                       
+                       Block(block_size * 62, HEIGHT- block_size*4, block_size),
+                       Block(block_size * 61, HEIGHT- block_size*5, block_size),
+                       Block(block_size * 60, HEIGHT- block_size*6, block_size),
+                       Block(block_size * 64, HEIGHT- block_size*3, block_size),
+                       
                        
                        
                        
@@ -487,8 +506,8 @@ def main(window):
                        Block(block_size * 100, HEIGHT - block_size * 2, block_size),
                        Block(block_size * 100, HEIGHT - block_size * 3, block_size), 
                        Block(block_size * 100, HEIGHT - block_size * 4, block_size),
-                       Block(block_size * 100, HEIGHT  - block_size * 5, block_size),
-                       Block(block_size * 100, HEIGHT  - block_size * 6, block_size),
+                       Block(block_size * 100, HEIGHT - block_size * 5, block_size),
+                       Block(block_size * 100, HEIGHT - block_size * 6, block_size),
 
                        fire,fire2,fire3,fire4,fire5,fire6,fire7,trap]
 
