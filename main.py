@@ -360,11 +360,15 @@ def main(window):
 
     fire = Fire(1000,HEIGHT -block_size - 64,16,32)
     fire2 = Fire(1032,HEIGHT -block_size - 64,16,32)
-    fire3 = Fire(2264,HEIGHT -4*block_size - 64,16,32)
-    fire4 = Fire(2232,HEIGHT -4*block_size - 64,16,32)
-    fire5 = Fire(2200,HEIGHT -4*block_size - 64,16,32)
+    fire3 = Fire(2214,HEIGHT -4*block_size - 64,16,32)
+    fire4 = Fire(2182,HEIGHT -4*block_size - 64,16,32)
+    fire5 = Fire(2150,HEIGHT -4*block_size - 64,16,32)
     fire6 = Fire(5100,HEIGHT -block_size - 64,16,32)
     fire7 = Fire(5132,HEIGHT -block_size - 64,16,32)
+    fire8 = Fire(6400,HEIGHT -block_size - 64,16,32)
+    fire9 = Fire(435,HEIGHT -3*block_size - 64,16,32)
+    fire10 = Fire(530,HEIGHT -4*block_size - 64,16,32)
+    fire11 = Fire(625,HEIGHT -5*block_size - 64,16,32)
     trap = Trap(300,HEIGHT - 110,1000,1000)
 
 
@@ -379,6 +383,10 @@ def main(window):
     fire5.on()
     fire6.on()
     fire7.on()
+    fire8.on()
+    fire9.on()
+    fire10.on()
+    fire11.on()
    
     
     
@@ -407,7 +415,9 @@ def main(window):
              for i in range( 68,100)]
     
 
-    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6,*floor7, *floor8, Block(0, HEIGHT - block_size * 2, block_size),
+    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6,*floor7, *floor8, 
+               
+                       Block(0, HEIGHT - block_size * 2, block_size),
                        Block(0, HEIGHT - block_size * 3, block_size),
                        Block(0, HEIGHT - block_size * 4, block_size),
                        Block(0, HEIGHT - block_size * 5, block_size),
@@ -416,6 +426,7 @@ def main(window):
 
                        Block(block_size * 4, HEIGHT - block_size * 3, block_size),
                        Block(block_size * 5, HEIGHT - block_size * 4, block_size),
+                       Block(block_size * 6, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 6, HEIGHT - block_size * 5, block_size), 
                        Block(block_size * 7, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 8, HEIGHT - block_size * 4, block_size),
@@ -509,7 +520,7 @@ def main(window):
                        Block(block_size * 100, HEIGHT - block_size * 5, block_size),
                        Block(block_size * 100, HEIGHT - block_size * 6, block_size),
 
-                       fire,fire2,fire3,fire4,fire5,fire6,fire7,trap]
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,trap]
 
     
     offset_x = 0
@@ -534,6 +545,11 @@ def main(window):
         fire5.loop()
         fire6.loop()
         fire7.loop()
+        fire8.loop()
+        fire9.loop()
+        fire10.loop()
+        fire11.loop()
+        
         trap.draw(window,offset_x)
         
        
