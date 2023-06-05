@@ -412,7 +412,7 @@ def main(window):
              for i in range( 58,65)]
     
     floor8 = [Block(i * block_size, HEIGHT - block_size, block_size)
-             for i in range( 68,100)]
+             for i in range( 68,75)]
     
 
     objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6,*floor7, *floor8, 
@@ -513,12 +513,12 @@ def main(window):
                        
                        
                        
-                       Block(block_size * 100, HEIGHT - block_size * 1, block_size),
-                       Block(block_size * 100, HEIGHT - block_size * 2, block_size),
-                       Block(block_size * 100, HEIGHT - block_size * 3, block_size), 
-                       Block(block_size * 100, HEIGHT - block_size * 4, block_size),
-                       Block(block_size * 100, HEIGHT - block_size * 5, block_size),
-                       Block(block_size * 100, HEIGHT - block_size * 6, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 1, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 2, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 3, block_size), 
+                       Block(block_size * 75, HEIGHT - block_size * 4, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 5, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 6, block_size),
 
                        fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,trap]
 
