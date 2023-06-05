@@ -11,7 +11,7 @@ pygame.display.set_caption("Py_game")
 
 WIDTH, HEIGHT = 800,600
 FPS = 60
-PLAYER_VEL = 5
+PLAYER_VEL = 5 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 COLOR = (255,0,0)
 
@@ -363,6 +363,8 @@ def main(window):
     fire3 = Fire(2264,HEIGHT -4*block_size - 64,16,32)
     fire4 = Fire(2232,HEIGHT -4*block_size - 64,16,32)
     fire5 = Fire(2200,HEIGHT -4*block_size - 64,16,32)
+    fire6 = Fire(5100,HEIGHT -block_size - 64,16,32)
+    fire7 = Fire(5132,HEIGHT -block_size - 64,16,32)
     trap = Trap(300,HEIGHT - 110,1000,1000)
 
 
@@ -375,6 +377,8 @@ def main(window):
     fire3.on()
     fire4.on()
     fire5.on()
+    fire6.on()
+    fire7.on()
    
     
     
@@ -394,10 +398,13 @@ def main(window):
              for i in range(49,50)]
     
     floor6 = [Block(i * block_size, HEIGHT - block_size, block_size)
-             for i in range(52,100)]
+             for i in range(54,55)]
+    
+    floor7 = [Block(i * block_size, HEIGHT - block_size, block_size)
+             for i in range( 58,100)]
     
 
-    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6, Block(0, HEIGHT - block_size * 2, block_size),
+    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6,*floor7, Block(0, HEIGHT - block_size * 2, block_size),
                        Block(0, HEIGHT - block_size * 3, block_size),
                        Block(0, HEIGHT - block_size * 4, block_size),
                        Block(0, HEIGHT - block_size * 5, block_size),
@@ -463,6 +470,15 @@ def main(window):
                        Block(block_size * 52, HEIGHT- block_size*5, block_size),
                        Block(block_size * 52, HEIGHT- block_size*7, block_size),
                        Block(block_size * 52, HEIGHT- block_size*8, block_size),
+
+
+                       Block(block_size * 55, HEIGHT- block_size*1, block_size),
+                       Block(block_size * 55, HEIGHT- block_size*2, block_size),
+                       Block(block_size * 55, HEIGHT- block_size*4, block_size),
+                       Block(block_size * 55, HEIGHT- block_size*5, block_size),
+                       Block(block_size * 55, HEIGHT- block_size*6, block_size),
+                       Block(block_size * 55, HEIGHT- block_size*7, block_size),
+                       Block(block_size * 55, HEIGHT- block_size*8, block_size),
                        
                        
                        
@@ -474,7 +490,7 @@ def main(window):
                        Block(block_size * 100, HEIGHT  - block_size * 5, block_size),
                        Block(block_size * 100, HEIGHT  - block_size * 6, block_size),
 
-                       fire,fire2,fire3,fire4,fire5,trap]
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,trap]
 
     
     offset_x = 0
@@ -497,6 +513,8 @@ def main(window):
         fire3.loop()
         fire4.loop()
         fire5.loop()
+        fire6.loop()
+        fire7.loop()
         trap.draw(window,offset_x)
         
        
