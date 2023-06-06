@@ -13,6 +13,7 @@ from os.path import isfile, join
 pygame.init()
 
 
+
 pygame.display.set_caption("Py_game")
 
 WIDTH, HEIGHT = 800,600
@@ -20,9 +21,6 @@ FPS = 60
 PLAYER_VEL = 5 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 COLOR = (255,0,0)
-
-
-game_state = "start_menu"
 
 def draw_start_menu():
     window.fill((0, 0, 0))
@@ -32,6 +30,17 @@ def draw_start_menu():
     window.blit(title, (WIDTH/2 - title.get_width()/2, HEIGHT/2 - title.get_height()/2))
     window.blit(start_button, (WIDTH/2 - start_button.get_width()/2, HEIGHT/2 + start_button.get_height()/2))
     pygame.display.update()
+
+def draw_game_over_screen():
+   window.fill((0, 0, 0))
+   font = pygame.font.SysFont('arial', 40)
+   title = font.render('Game Over', True, (255, 255, 255))
+   restart_button = font.render('R - Restart', True, (255, 255, 255))
+   quit_button = font.render('Q - Quit', True, (255, 255, 255))
+   window.blit(title, (WIDTH/2 - title.get_width()/2, HEIGHT/2 - title.get_height()/3))
+   window.blit(restart_button, (WIDTH/2 - restart_button.get_width()/2, HEIGHT/1.9 + restart_button.get_height()))
+   window.blit(quit_button, (WIDTH/2 - quit_button.get_width()/2, HEIGHT/2 + quit_button.get_height()/2))
+   pygame.display.update()
 
 def get_block(size):
     path = join("assets", "Terrain", "Terrain.png")
@@ -338,44 +347,62 @@ def main(window):
     offset_x = 0
     scroll_area_width = 200
     run = True
+    game_state = 3
     while run:  
         clock.tick(FPS)            
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                run = False
-                break
-             
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE  and player.jump_count < 2:
-                    player.jump()
+                pygame.quit()
+                quit()
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_UP and player.jump_count < 2:
+                player.jump()
 
-        player.loop(FPS)
-        fire.loop()
-        fire2.loop()
-        fire3.loop()
-        fire4.loop()
-        fire5.loop()
-        fire6.loop()
-        fire7.loop()
-        fire8.loop()
-        fire9.loop()
-        fire10.loop()
-        fire11.loop()
-        trap.draw(window,offset_x)
+        if game_state == 1:
+            keys = pygame.key.get_pressed()
+            draw_start_menu()
+       
+            if keys[pygame.K_SPACE]:
+                game_state = 2
+                game_over = False
+
+
+        elif game_state == 3:
+            draw_game_over_screen()
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_r]:
+                game_state = 1
+            if keys[pygame.K_q]:
+                pygame.quit()
+                quit()
+            
+        elif game_state == 2:
+            player.loop(FPS)
+            fire.loop()
+            fire2.loop()
+            fire3.loop()
+            fire4.loop()
+            fire5.loop()
+            fire6.loop()
+            fire7.loop()
+            fire8.loop()
+            fire9.loop()
+            fire10.loop()
+            fire11.loop()
+            trap.draw(window,offset_x)
         
        
-        handle_move(player,objects)
-        draw(window, background, bg_color,player,objects,offset_x,bar)
+            handle_move(player,objects)
+            draw(window, background, bg_color,player,objects,offset_x,bar)
         
 
 
     
-        if ((player.rect.right - offset_x + 300>= WIDTH - scroll_area_width) and player.x_vel > 0) or (
-                (player.rect.left - offset_x -300 <= scroll_area_width) and player.x_vel < 0):
-            offset_x += player.x_vel
-    pygame.quit()
-    quit()
+            if ((player.rect.right - offset_x + 300>= WIDTH - scroll_area_width) and player.x_vel > 0) or (
+                    (player.rect.left - offset_x -300 <= scroll_area_width) and player.x_vel < 0):
+                        offset_x += player.x_vel
+    
 
 
 if __name__ == "__main__":
