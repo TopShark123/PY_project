@@ -1,6 +1,12 @@
 import os
-import random
-import math
+from trap import Trap
+from object import Object
+from block import Block
+from player import Player
+from fire import Fire
+from healthbar import HealthBar
+from button import Button
+
 import pygame
 import time
 from os import listdir
@@ -179,100 +185,6 @@ class Player(pygame.sprite.Sprite):
         win.blit(self.sprite, (self.rect.x - offset_x, self.rect.y))
 
 
-
- #---------------------------------------------------------------------------------------------
-
-class Object(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height, name=None):
-        super().__init__()
-        self.rect = pygame.Rect(x, y, width, height)
-        self.image = pygame.Surface((width, height), pygame.SRCALPHA)
-        self.width = width
-        self.height = height
-        self.name = name
-
-    def draw(self, win, offset_x):
-        win.blit(self.image, (self.rect.x - offset_x, self.rect.y))
-
- 
-#-------------------------------------------------------------------------------------------------
-
-
-class Block(Object):
-    def __init__(self, x, y, size):
-        super().__init__(x, y, size, size)
-        block = get_block(size)
-        self.image.blit(block, (0, 0))
-        self.mask = pygame.mask.from_surface(self.image)
-
-#------------------------------------------------------------------------------------
-
-class HealthBar(Player):
-    def __init__(self, x, y, width, height, max_hp):
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.max_hp = max_hp
-        self.hp = self.max_hp
-        
-    def draw(self):
-        ratio = self.hp / self.max_hp
-        pygame.draw.rect(window, "red", (self.x, self.y, self.width, self.height))
-        pygame.draw.rect(window, "green", (self.x, self.y, self.width * ratio, self.height))
-
-#------------------------------------------------------------------------------------
-class Fire(Object):
-    ANIMATION_DELAY = 3
-
-    def __init__(self, x, y, width, height):
-        super().__init__(x, y, width, height, "fire")
-        self.fire = load_sprite_sheets("Traps", "Fire", width, height)
-        self.image = self.fire["off"][0]
-        self.mask = pygame.mask.from_surface(self.image)
-        self.animation_count = 0
-        self.animation_name = "off"
-
-    def on(self):
-        self.animation_name = "on"
-
-    def off(self):
-        self.animation_name = "off"
-
-    
-    def loop(self):
-        sprites = self.fire[self.animation_name]
-        sprite_index = (self.animation_count //
-                        self.ANIMATION_DELAY) % len(sprites)
-        self.image = sprites[sprite_index]
-        self.animation_count += 1
-
-        self.rect = self.image.get_rect(topleft=(self.rect.x, self.rect.y))
-        self.mask = pygame.mask.from_surface(self.image)
-
-        if self.animation_count // self.ANIMATION_DELAY > len(sprites):
-            self.animation_count = 0
-
-#--------------------------------------------------------------------------------------------
-class Trap(Object):
-    def __init__(self, x, y, width, height):
-        super().__init__(x, y, width, height)
-        self.x = x
-        self.y = y
-        path = join("assets","Traps", "Spikes", "Idle.png")
-        image = pygame.image.load(path).convert_alpha()
-        surface = pygame.Surface((width, height), pygame.SRCALPHA, 32)
-        rect = pygame.Rect(96, 0, width, height)
-        surface.blit(image, (0, 0), rect)
-        self.image.blit(image, (0, 0))
-        self.mask = pygame.mask.from_surface(self.image)
-        pygame.transform.scale2x(surface)
-
-    def draw(self, win, offset_x):
-        win.blit(self.image, (self.rect.x - offset_x, self.rect.y))
-
-#--------------------------------------------------------------------------------------------
-
 def get_background(name):
     image = pygame.image.load(join("assets","Background",name))
     _, _, width, height = image.get_rect()
@@ -297,7 +209,6 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
         bar.draw()
        
         
-    
 
 
     pygame.display.update()
@@ -368,6 +279,10 @@ def main(window):
     fire5 = Fire(2200,HEIGHT -4*block_size - 64,16,32)
     fire6 = Fire(5100,HEIGHT -block_size - 64,16,32)
     fire7 = Fire(5132,HEIGHT -block_size - 64,16,32)
+    fire8 = Fire(6400,HEIGHT -block_size - 64,16,32)
+    fire9 = Fire(435,HEIGHT -3*block_size - 64,16,32)
+    fire10 = Fire(530,HEIGHT -4*block_size - 64,16,32)
+    fire11 = Fire(625,HEIGHT -5*block_size - 64,16,32)
     trap = Trap(300,HEIGHT - 110,1000,1000)
 
 
@@ -382,6 +297,11 @@ def main(window):
     fire5.on()
     fire6.on()
     fire7.on()
+    fire8.on()
+    fire9.on()
+    fire10.on()
+    fire11.on()
+
    
     
     
@@ -404,23 +324,28 @@ def main(window):
              for i in range(54,55)]
     
     floor7 = [Block(i * block_size, HEIGHT - block_size, block_size)
-             for i in range( 58,100)]
-    
+             for i in range( 58,65)]
 
-    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6,*floor7, Block(0, HEIGHT - block_size * 2, block_size),
+    floor8 = [Block(i * block_size, HEIGHT - block_size, block_size)
+             for i in range( 68,75)]
+             
+
+
+    
+    objects = [*floor,*floor2,*floor3, *floor4,*floor5, *floor6,*floor7,*floor8, Block(0, HEIGHT - block_size * 2, block_size),
                        Block(0, HEIGHT - block_size * 3, block_size),
                        Block(0, HEIGHT - block_size * 4, block_size),
                        Block(0, HEIGHT - block_size * 5, block_size),
-                       Block(0, HEIGHT - block_size * 6, block_size),
 
 
                        Block(block_size * 4, HEIGHT - block_size * 3, block_size),
                        Block(block_size * 5, HEIGHT - block_size * 4, block_size),
+                       Block(block_size * 6, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 6, HEIGHT - block_size * 5, block_size), 
                        Block(block_size * 7, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 8, HEIGHT - block_size * 4, block_size),
-                       Block(block_size * 9, HEIGHT - block_size * 4, block_size),
 
+                       Block(block_size * 9, HEIGHT - block_size * 4, block_size),
                      
                        Block(block_size * 11.60, HEIGHT- block_size * 7, block_size),
                        Block(block_size * 11.60, HEIGHT- block_size * 6, block_size),
@@ -435,20 +360,17 @@ def main(window):
                        Block(block_size * 24, HEIGHT- block_size * 4, block_size),
                        
                        Block(block_size * 28, HEIGHT- block_size * 4.5, block_size),
-
                        Block(block_size * 35, HEIGHT- block_size * 4.0, block_size),
                        Block(block_size * 37, HEIGHT- block_size * 2.5, block_size),
                        Block(block_size * 40, HEIGHT- block_size * 5.0, block_size),
                        Block(block_size * 41, HEIGHT- block_size * 5.0, block_size),
-
-
                        Block(block_size * 35, HEIGHT- block_size * 4.0, block_size),
                        Block(block_size * 37, HEIGHT- block_size * 2.5, block_size),
                        Block(block_size * 39, HEIGHT- block_size * 5.0, block_size),
                        Block(block_size * 40, HEIGHT- block_size * 5.0, block_size),
 
-                       Block(block_size * 46, HEIGHT- block_size, block_size),
 
+                       Block(block_size * 46, HEIGHT- block_size, block_size),
                        Block(block_size * 46, HEIGHT- block_size*2, block_size),
                        Block(block_size * 46, HEIGHT- block_size*3, block_size),
                        Block(block_size * 46, HEIGHT- block_size*5, block_size),
@@ -482,18 +404,33 @@ def main(window):
                        Block(block_size * 55, HEIGHT- block_size*6, block_size),
                        Block(block_size * 55, HEIGHT- block_size*7, block_size),
                        Block(block_size * 55, HEIGHT- block_size*8, block_size),
-                       
-                       
-                       
-                       
-                       Block(block_size * 100, HEIGHT - block_size * 1, block_size),
-                       Block(block_size * 100, HEIGHT - block_size * 2, block_size),
-                       Block(block_size * 100, HEIGHT - block_size * 3, block_size), 
-                       Block(block_size * 100, HEIGHT - block_size * 4, block_size),
-                       Block(block_size * 100, HEIGHT  - block_size * 5, block_size),
-                       Block(block_size * 100, HEIGHT  - block_size * 6, block_size),
 
-                       fire,fire2,fire3,fire4,fire5,fire6,fire7,trap]
+                       
+
+                       Block(block_size * 58, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 59, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 60, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 61, HEIGHT- block_size*3, block_size),
+                       Block(block_size * 62, HEIGHT- block_size*3, block_size),  
+                       Block(block_size * 63, HEIGHT- block_size*3, block_size),
+
+
+                       Block(block_size * 62, HEIGHT- block_size*4, block_size),
+                       Block(block_size * 61, HEIGHT- block_size*5, block_size),
+                       Block(block_size * 60, HEIGHT- block_size*6, block_size),
+                       Block(block_size * 64, HEIGHT- block_size*3, block_size),
+
+
+
+
+
+                       Block(block_size * 75, HEIGHT - block_size * 1, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 2, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 3, block_size), 
+                       Block(block_size * 75, HEIGHT - block_size * 4, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 5, block_size),
+                       Block(block_size * 75, HEIGHT - block_size * 6, block_size),
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,trap]
 
     
     offset_x = 0
@@ -518,6 +455,10 @@ def main(window):
         fire5.loop()
         fire6.loop()
         fire7.loop()
+        fire8.loop()
+        fire9.loop()
+        fire10.loop()
+        fire11.loop()
         trap.draw(window,offset_x)
         
        
