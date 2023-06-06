@@ -62,3 +62,4 @@ class Fire(Object):
 
         if self.animation_count // self.ANIMATION_DELAY > len(sprites):
             self.animation_count = 0
+
