@@ -208,11 +208,13 @@ class Block(Object):
 #------------------------------------------------------------------------------------
 
 class HealthBar(Player):
-    def __init__(self, x, y, width, height):
+    def __init__(self, x, y, width, height, max_hp):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
+        self.max_hp = max_hp
+        self.hp = self.max_hp
         
     def draw(self):
         ratio = self.hp / self.max_hp
@@ -357,7 +359,7 @@ def main(window):
 
     #spike =Trap(100,HEIGHT - block_size,16,8)
 
-    player = Player(100,100,50,50)
+    player = Player(100,100,50,50, 100)
 
     fire = Fire(1000,HEIGHT -block_size - 64,16,32)
     fire2 = Fire(1032,HEIGHT -block_size - 64,16,32)
@@ -371,7 +373,7 @@ def main(window):
 
    
 
-    bar = HealthBar(0,0,100,20,100)
+    bar = HealthBar(0,0,100,20, 100)
 
     fire.on()
     fire2.on()
