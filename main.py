@@ -6,12 +6,12 @@ from player import Player
 from fire import Fire
 from healthbar import HealthBar
 from button import Button
-
 import pygame
 import time
 from os import listdir
 from os.path import isfile, join
 pygame.init()
+
 
 pygame.display.set_caption("Py_game")
 
@@ -20,6 +20,18 @@ FPS = 60
 PLAYER_VEL = 5 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 COLOR = (255,0,0)
+
+
+game_state = "start_menu"
+
+def draw_start_menu():
+    window.fill((0, 0, 0))
+    font = pygame.font.SysFont('arial', 40)
+    title = font.render('My Game', True, (255, 255, 255))
+    start_button = font.render('Start', True, (255, 255, 255))
+    window.blit(title, (WIDTH/2 - title.get_width()/2, HEIGHT/2 - title.get_height()/2))
+    window.blit(start_button, (WIDTH/2 - start_button.get_width()/2, HEIGHT/2 + start_button.get_height()/2))
+    pygame.display.update()
 
 def get_block(size):
     path = join("assets", "Terrain", "Terrain.png")
@@ -92,7 +104,7 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
         obj.draw(window,offset_x)
  
         player.draw(window,offset_x)
-        player.check_down()
+       # player.check_down()
         bar.draw()
        
         
@@ -318,18 +330,22 @@ def main(window):
                        Block(block_size * 75, HEIGHT - block_size * 5, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 6, block_size),
                        fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,trap]
+    
+
+
 
     
     offset_x = 0
     scroll_area_width = 200
     run = True
     while run:  
-        clock.tick(FPS)
+        clock.tick(FPS)            
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
                 break
+             
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE  and player.jump_count < 2:
                     player.jump()
