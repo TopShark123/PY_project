@@ -25,8 +25,8 @@ COLOR = (255,0,0)
 def draw_start_menu():
     window.fill((0, 0, 0))
     font = pygame.font.SysFont('arial', 40)
-    title = font.render('My Game', True, (255, 255, 255))
-    start_button = font.render('Start', True, (255, 255, 255))
+    title = font.render('Enter space to', True, (255, 255, 255))
+    start_button = font.render('start', True, (255, 255, 255))
     window.blit(title, (WIDTH/2 - title.get_width()/2, HEIGHT/2 - title.get_height()/2))
     window.blit(start_button, (WIDTH/2 - start_button.get_width()/2, HEIGHT/2 + start_button.get_height()/2))
     pygame.display.update()
@@ -355,9 +355,9 @@ def main(window):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_UP and player.jump_count < 2:
-                player.jump()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE and player.jump_count < 2:
+                    player.jump()
 
         if game_state == 1:
             keys = pygame.key.get_pressed()
@@ -376,6 +376,8 @@ def main(window):
             if keys[pygame.K_q]:
                 pygame.quit()
                 quit()
+
+        
             
         elif game_state == 2:
             player.loop(FPS)
@@ -391,6 +393,8 @@ def main(window):
             fire10.loop()
             fire11.loop()
             trap.draw(window,offset_x)
+
+        
         
        
             handle_move(player,objects)

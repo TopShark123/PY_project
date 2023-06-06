@@ -130,8 +130,7 @@ class Player(pygame.sprite.Sprite):
         sprite_sheet = "idle"
         if self.hit:
             sprite_sheet = "hit"
-            pygame.quit()
-            quit()
+
         elif self.y_vel < 0:
             if self.jump_count == 1:
                 sprite_sheet = "jump"
