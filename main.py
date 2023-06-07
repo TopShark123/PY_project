@@ -342,8 +342,13 @@ def main(window):
                        fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,trap]
     
 
+    def restart_game():
+        player.rect.x = 100  # Възстановяване на позицията по X на играча
+        player.rect.y = 100  # Възстановяване на позицията по Y на играча
+        main(window)
 
-
+        
+        
     
     offset_x = 0
     scroll_area_width = 200
@@ -360,8 +365,7 @@ def main(window):
                 if event.key == pygame.K_SPACE and player.jump_count < 2:
                     player.jump()
 
-        if player.check_status():
-            game_state = 3
+        
 
         if game_state == 1:
             keys = pygame.key.get_pressed()
@@ -371,7 +375,21 @@ def main(window):
                 game_state = 2
                 game_over = False
 
-        elif game_state == 2:
+        elif game_state == 3:
+            draw_game_over_screen()
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_r]:
+                restart_game()
+                game_state = 1
+            if keys[pygame.K_q]:
+                pygame.quit()
+                quit()
+
+        
+
+        if game_state == 2:
+            
+            
             player.loop(FPS)
             fire.loop()
             fire2.loop()
@@ -387,33 +405,23 @@ def main(window):
             trap.draw(window,offset_x)
 
         
-        
-       
+    
             handle_move(player,objects)
             draw(window, background, bg_color,player,objects,offset_x,bar)
+
+            if player.check_status():
+                game_over = True
+                game_state = 3
+
         
 
-
-    
             if ((player.rect.right - offset_x + 300>= WIDTH - scroll_area_width) and player.x_vel > 0) or (
                     (player.rect.left - offset_x -300 <= scroll_area_width) and player.x_vel < 0):
                         offset_x += player.x_vel
+
+                        
+
+        
     
-
-
-        if game_state == 3:
-            draw_game_over_screen()
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_r]:
-                game_state = 1
-            if keys[pygame.K_q]:
-                pygame.quit()
-                quit()
-
-        
-        
-
-        
-        
 if __name__ == "__main__":
     main(window)

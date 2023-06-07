@@ -1,1 +1,1 @@
-double_jump
+player = Player(100,100,50,50)
