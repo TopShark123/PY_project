@@ -2,6 +2,9 @@ import pygame
 from object import Object
 from os import listdir
 from os.path import isfile, join
+from healthbar import HealthBar
+
+bar = HealthBar(0,0,100,20, 100)
 
 WIDTH, HEIGHT = 800,600
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -124,7 +127,7 @@ class Player(pygame.sprite.Sprite):
         sprite_sheet = "idle"
         if self.hit:
             sprite_sheet = "hit"
-
+            bar.take_damage()
         elif self.y_vel < 0:
             if self.jump_count == 1:
                 sprite_sheet = "jump"

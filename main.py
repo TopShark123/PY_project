@@ -128,6 +128,7 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
         
        
         bar.draw()
+        bar.draw_update()
        
         
 
@@ -204,13 +205,12 @@ def main(window):
     fire9 = Fire(435,HEIGHT -3*block_size - 64,16,32)
     fire10 = Fire(530,HEIGHT -4*block_size - 64,16,32)
     fire11 = Fire(625,HEIGHT -5*block_size - 64,16,32)
-    trap = Trap(300,HEIGHT - 110,1000,1000)
-
+    
 
    
 
     bar = HealthBar(0,0,100,20, 100)
-
+ 
     fire.on()
     fire2.on()
     fire3.on()
@@ -351,7 +351,7 @@ def main(window):
                        Block(block_size * 75, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 5, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 6, block_size),
-                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,trap]
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11]
     
 
     def restart_game():
@@ -361,7 +361,6 @@ def main(window):
 
         
         
-    
     offset_x = 0
     scroll_area_width = 200
     run = True
@@ -418,7 +417,7 @@ def main(window):
             fire9.loop()
             fire10.loop()
             fire11.loop()
-            trap.draw(window,offset_x)
+            
 
         
     

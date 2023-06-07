@@ -1,1 +1,1 @@
-player = Player(100,100,50,50)
+bar = HealthBar(0,0,100,20, 100)
