@@ -129,7 +129,6 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
        
         bar.draw()
        
-        
 
 
     pygame.display.update()
@@ -176,9 +175,11 @@ def collide(player, objects, dx):
     collided_object = None
     for obj in objects:
         if pygame.sprite.collide_mask(player, obj):
+            
             collided_object = obj
             break
-
+    
+    
     player.move(-dx, 0)
     player.update()
     return collided_object
@@ -186,12 +187,11 @@ def collide(player, objects, dx):
 def main(window):
     clock = pygame.time.Clock()
     background, bg_color= get_background("Yellow.png")
-
     block_size = 94
 
     #spike =Trap(100,HEIGHT - block_size,16,8)
 
-    player = Player(100,100,50,50)
+    player = Player(100,100,50,50,100)
 
     fire = Fire(1000,HEIGHT -block_size - 64,16,32)
     fire2 = Fire(1032,HEIGHT -block_size - 64,16,32)
@@ -351,7 +351,7 @@ def main(window):
                        Block(block_size * 75, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 5, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 6, block_size),
-                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,trap]
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11 ]
     
 
     def restart_game():
