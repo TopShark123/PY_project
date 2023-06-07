@@ -370,7 +370,7 @@ def main(window):
         clock.tick(FPS)    
 
         if player.check_check():
-            a = bar.take_damage(0.1)
+            a = bar.take_damage(0.175)
 
             bar.update(a)
 
