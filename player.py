@@ -2,6 +2,8 @@ import pygame
 from object import Object
 from os import listdir
 from os.path import isfile, join
+from healthbar import HealthBar
+from fire import Fire
 
 WIDTH, HEIGHT = 800,600
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -9,7 +11,6 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 def load_sprite_sheets(dir1, dir2, width, height, direction=False):
     path = join("assets", dir1, dir2)
     images = [f for f in listdir(path) if isfile(join(path, f))]
-
     all_sprites = {}
 
     for image in images:
@@ -34,14 +35,15 @@ def load_sprite_sheets(dir1, dir2, width, height, direction=False):
 def flip(sprites):
     return [pygame.transform.flip(sprite, True, False) for sprite in sprites]
 
-class Player(pygame.sprite.Sprite):
+class Player(pygame.sprite.Sprite, HealthBar):
+    player_width, player_height = 32, 32
     
     GRAVITY = 1 #начална гравитация
-    SPRITES = load_sprite_sheets("MainCharacters", "VirtualGuy", 32, 32, True)
+    SPRITES = load_sprite_sheets("MainCharacters", "VirtualGuy", player_height, player_width, True)
     ANIMATION_DELAY = 5
 
 
-    def __init__(self, x,y,width,height):
+    def __init__(self, x,y,width,height, max_hp):
         self.rect = pygame.Rect(x, y, width, height)
         self.x_vel = 0
         self.y_vel = 0
@@ -52,6 +54,8 @@ class Player(pygame.sprite.Sprite):
         self.jump_count = 0
         self.hit = False
         self.hit_count = 0
+        self.hp = max_hp
+        self.max_hp = max_hp
 
 
 
@@ -61,7 +65,7 @@ class Player(pygame.sprite.Sprite):
         
         else:
             return False
-        
+
 
     def check_status_dead(self):
         if self.rect.y > 1000:
@@ -124,6 +128,7 @@ class Player(pygame.sprite.Sprite):
         sprite_sheet = "idle"
         if self.hit:
             sprite_sheet = "hit"
+            self.hp = self.hp - 10
 
         elif self.y_vel < 0:
             if self.jump_count == 1:
