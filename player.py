@@ -3,11 +3,13 @@ from object import Object
 from os import listdir
 from os.path import isfile, join
 from healthbar import HealthBar
-
-
-bar = HealthBar(0,0,100,20, 100)
-
 from fire import Fire
+
+
+bar = HealthBar(0,0,200,20,100)
+
+
+
 
 WIDTH, HEIGHT = 800,600
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -128,14 +130,18 @@ class Player(pygame.sprite.Sprite, HealthBar):
         if self.jump_count == 1:
             self.fall_count = 0
 
+    def check_check(self):
+        sprite_sheet = "idle"
+        if self.hit:
+            sprite_sheet = "hit"
+            return True
+        else:
+            return False
+
     def update_sprite(self):
         sprite_sheet = "idle"
         if self.hit:
             sprite_sheet = "hit"
-
-            bar.take_damage()
-
-            self.hp = self.hp - 10
 
             if self.jump_count == 1:
                 sprite_sheet = "jump"

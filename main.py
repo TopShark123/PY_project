@@ -127,8 +127,7 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
         player.draw(window,offset_x)
         
        
-        bar.draw()
-        bar.draw_update()
+        bar.draw(window)
        
 
 
@@ -205,12 +204,13 @@ def main(window):
     fire9 = Fire(435,HEIGHT -3*block_size - 64,16,32)
     fire10 = Fire(530,HEIGHT -4*block_size - 64,16,32)
     fire11 = Fire(625,HEIGHT -5*block_size - 64,16,32)
-    
+    trap = Trap(300,HEIGHT - 110,1000,1000)
+
 
    
 
-    bar = HealthBar(0,0,100,20, 100)
- 
+    bar = HealthBar(0,0,200,20,100)
+
     fire.on()
     fire2.on()
     fire3.on()
@@ -351,7 +351,7 @@ def main(window):
                        Block(block_size * 75, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 5, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 6, block_size),
-                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,trap]
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11 ]
     
 
     def restart_game():
@@ -359,15 +359,24 @@ def main(window):
         player.rect.y = 100  # Възстановяване на позицията по Y на играча
         main(window)
 
-
         
         
+    
     offset_x = 0
     scroll_area_width = 200
     run = True
     game_state = 1
     while run:  
-        clock.tick(FPS)            
+        clock.tick(FPS)    
+
+        if player.check_check():
+            a = bar.take_damage(0.1)
+
+            bar.update(a)
+
+            if a == 0:
+                game_state = 3
+            
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -388,7 +397,7 @@ def main(window):
                 game_over = False
 
         elif game_state == 3:
-            if player.check_status_dead():
+            if player.check_status_dead() or a == 0:
                 draw_game_over_screen()
 
             else:
@@ -405,7 +414,7 @@ def main(window):
 
         if game_state == 2:
             
-            
+            bar.draw(window)
             player.loop(FPS)
             fire.loop()
             fire2.loop()
@@ -418,7 +427,7 @@ def main(window):
             fire9.loop()
             fire10.loop()
             fire11.loop()
-            
+            trap.draw(window,offset_x)
 
         
     
