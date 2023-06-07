@@ -42,6 +42,18 @@ def draw_game_over_screen():
    window.blit(quit_button, (WIDTH/2 - quit_button.get_width()/2, HEIGHT/2 + quit_button.get_height()/2))
    pygame.display.update()
 
+
+def draw_game_win_screen():
+   window.fill((0, 0, 0))
+   font = pygame.font.SysFont('arial', 40)
+   title = font.render('Congrats, you won!', True, (255, 255, 255))
+   restart_button = font.render('R - Restart', True, (255, 255, 255))
+   quit_button = font.render('Q - Quit', True, (255, 255, 255))
+   window.blit(title, (WIDTH/2 - title.get_width()/2, HEIGHT/2 - title.get_height()/3))
+   window.blit(restart_button, (WIDTH/2 - restart_button.get_width()/2, HEIGHT/1.9 + restart_button.get_height()))
+   window.blit(quit_button, (WIDTH/2 - quit_button.get_width()/2, HEIGHT/2 + quit_button.get_height()/2))
+   pygame.display.update()
+
 def get_block(size):
     path = join("assets", "Terrain", "Terrain.png")
     image = pygame.image.load(path).convert_alpha()
@@ -376,7 +388,11 @@ def main(window):
                 game_over = False
 
         elif game_state == 3:
-            draw_game_over_screen()
+            if player.check_status_dead():
+                draw_game_over_screen()
+
+            else:
+                draw_game_win_screen()
             keys = pygame.key.get_pressed()
             if keys[pygame.K_r]:
                 restart_game()
@@ -409,7 +425,7 @@ def main(window):
             handle_move(player,objects)
             draw(window, background, bg_color,player,objects,offset_x,bar)
 
-            if player.check_status():
+            if player.check_status_dead() or player.check_status_won():
                 game_over = True
                 game_state = 3
 

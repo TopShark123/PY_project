@@ -55,37 +55,21 @@ class Player(pygame.sprite.Sprite):
 
 
 
-    def check_status(self):
-        if self.rect.y > 1000 or self.rect.x > 6800:
+    def check_status_won(self):
+        if self.rect.x > 6800:
             return True
         
         else:
             return False
+        
 
-
-    def check_down(self):
+    def check_status_dead(self):
         if self.rect.y > 1000:
-            font = pygame.font.Font('freesansbold.ttf', 32)
-            text = font.render('GeeksForGeeks', True,(255, 0, 0))
-            textRect = text.get_rect()
-            textRect.center = (WIDTH // 2, HEIGHT // 2)
-            font = pygame.font.SysFont("Arial", 72)
-            txtsurf = font.render("You are dead!", True, (255,0,0))
-            window.blit(txtsurf,(400 - txtsurf.get_width() // 2, 50 - txtsurf.get_height() // 2))
-            
-
-    def check_final(self):
-        if self.rect.x > 6800:
-            font = pygame.font.Font('freesansbold.ttf', 32)
-            text = font.render('GeeksForGeeks', True,(255, 0, 0))
-            textRect = text.get_rect()
-            textRect.center = (WIDTH // 2, HEIGHT // 2)
-            font = pygame.font.SysFont("Arial", 72)
-            txtsurf = font.render("You won!", True, (255,0,0))
-            window.blit(txtsurf,(400 - txtsurf.get_width() // 2, 50 - txtsurf.get_height() // 2))
-            
-           
-            
+            return True
+        
+        else:
+            return False
+         
     def move(self,dx,dy):
         self.rect.x += dx
         self.rect.y += dy
