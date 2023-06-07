@@ -113,7 +113,8 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
         obj.draw(window,offset_x)
  
         player.draw(window,offset_x)
-       # player.check_down()
+        
+       
         bar.draw()
        
         
@@ -347,7 +348,7 @@ def main(window):
     offset_x = 0
     scroll_area_width = 200
     run = True
-    game_state = 3
+    game_state = 1
     while run:  
         clock.tick(FPS)            
 
@@ -359,6 +360,9 @@ def main(window):
                 if event.key == pygame.K_SPACE and player.jump_count < 2:
                     player.jump()
 
+        if player.check_status():
+            game_state = 3
+
         if game_state == 1:
             keys = pygame.key.get_pressed()
             draw_start_menu()
@@ -367,18 +371,6 @@ def main(window):
                 game_state = 2
                 game_over = False
 
-
-        elif game_state == 3:
-            draw_game_over_screen()
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_r]:
-                game_state = 1
-            if keys[pygame.K_q]:
-                pygame.quit()
-                quit()
-
-        
-            
         elif game_state == 2:
             player.loop(FPS)
             fire.loop()
@@ -409,5 +401,19 @@ def main(window):
     
 
 
+        if game_state == 3:
+            draw_game_over_screen()
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_r]:
+                game_state = 1
+            if keys[pygame.K_q]:
+                pygame.quit()
+                quit()
+
+        
+        
+
+        
+        
 if __name__ == "__main__":
     main(window)

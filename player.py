@@ -53,6 +53,16 @@ class Player(pygame.sprite.Sprite):
         self.hit = False
         self.hit_count = 0
 
+
+
+    def check_status(self):
+        if self.rect.y > 1000 or self.rect.x > 6800:
+            return True
+        
+        else:
+            return False
+
+
     def check_down(self):
         if self.rect.y > 1000:
             font = pygame.font.Font('freesansbold.ttf', 32)
