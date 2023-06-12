@@ -366,16 +366,18 @@ def main(window):
     scroll_area_width = 200
     run = True
     game_state = 1
+    check = 0
     while run:  
         clock.tick(FPS)    
 
         if player.check_check():
-            a = bar.take_damage(0.175)
 
-            bar.update(a)
+            result = bar.take_damage(0.175)
+            bar.update(result)
 
-            if a == 0:
+            if result == 0:
                 game_state = 3
+                check = 1
             
 
         for event in pygame.event.get():
@@ -383,7 +385,7 @@ def main(window):
                 pygame.quit()
                 quit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and player.jump_count < 2:
+                if event.key == pygame.K_SPACE and player.jump_count < 3:
                     player.jump()
 
         
@@ -397,7 +399,7 @@ def main(window):
                 game_over = False
 
         elif game_state == 3:
-            if player.check_status_dead() or a == 0:
+            if player.check_status_dead() or check == 1:
                 draw_game_over_screen()
 
             else:
@@ -450,3 +452,4 @@ def main(window):
     
 if __name__ == "__main__":
     main(window)
+    

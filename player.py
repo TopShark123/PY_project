@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite, HealthBar):
     player_width, player_height = 32, 32
     
     GRAVITY = 1 #начална гравитация
-    SPRITES = load_sprite_sheets("MainCharacters", "VirtualGuy", player_height, player_width, True)
+    SPRITES = load_sprite_sheets("MainCharacters", "NinjaFrog", player_height, player_width, True)
     ANIMATION_DELAY = 5
 
 
@@ -145,7 +145,7 @@ class Player(pygame.sprite.Sprite, HealthBar):
 
             if self.jump_count == 1:
                 sprite_sheet = "jump"
-            elif self.jump_count == 2:
+            if self.jump_count == 2:
                 sprite_sheet = "double_jump"
         elif self.y_vel > self.GRAVITY * 2:
             sprite_sheet = "fall"
