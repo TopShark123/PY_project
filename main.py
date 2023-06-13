@@ -5,7 +5,6 @@ from block import Block
 from player import Player
 from fire import Fire
 from healthbar import HealthBar
-from button import Button
 import pygame
 import time
 from os import listdir
@@ -204,6 +203,8 @@ def main(window):
     fire9 = Fire(435,HEIGHT -3*block_size - 64,16,32)
     fire10 = Fire(530,HEIGHT -4*block_size - 64,16,32)
     fire11 = Fire(625,HEIGHT -5*block_size - 64,16,32)
+    fire12 = Fire(6432,HEIGHT -block_size - 64,16,32)
+    fire13 = Fire(6464,HEIGHT -block_size - 64,16,32)
     trap = Trap(300,HEIGHT - 110,1000,1000)
 
 
@@ -222,6 +223,8 @@ def main(window):
     fire9.on()
     fire10.on()
     fire11.on()
+    fire12.on()
+    fire13.on()
 
    
     
@@ -351,7 +354,7 @@ def main(window):
                        Block(block_size * 75, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 5, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 6, block_size),
-                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11 ]
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,fire12,fire13 ]
     
 
     def restart_game():
@@ -385,7 +388,7 @@ def main(window):
                 pygame.quit()
                 quit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and player.jump_count < 3:
+                if event.key == pygame.K_SPACE and player.jump_count < 2:
                     player.jump()
 
         
@@ -429,6 +432,9 @@ def main(window):
             fire9.loop()
             fire10.loop()
             fire11.loop()
+            fire12.loop()
+            fire13.loop()
+            
             trap.draw(window,offset_x)
 
         
