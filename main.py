@@ -5,6 +5,8 @@ from block import Block
 from player import Player
 from fire import Fire
 from healthbar import HealthBar
+from start import Start
+from end import End
 import pygame
 import time
 from os import listdir
@@ -127,6 +129,10 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
         
        
         bar.draw(window)
+
+       
+
+    
        
 
 
@@ -205,10 +211,11 @@ def main(window):
     fire11 = Fire(625,HEIGHT -5*block_size - 64,16,32)
     fire12 = Fire(6432,HEIGHT -block_size - 64,16,32)
     fire13 = Fire(6464,HEIGHT -block_size - 64,16,32)
+    end = End(6900,HEIGHT - 155,100,100)
+    start = Start(20,HEIGHT - 4*block_size - 155,100,100)
+    
     trap = Trap(300,HEIGHT - 110,1000,1000)
 
-
-   
 
     bar = HealthBar(0,0,200,20,100)
 
@@ -225,7 +232,7 @@ def main(window):
     fire11.on()
     fire12.on()
     fire13.on()
-
+ 
    
     
     
@@ -354,7 +361,7 @@ def main(window):
                        Block(block_size * 75, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 5, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 6, block_size),
-                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,fire12,fire13 ]
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,fire12,fire13,end,start]
     
 
     def restart_game():
@@ -435,6 +442,8 @@ def main(window):
             fire12.loop()
             fire13.loop()
             
+            
+
             trap.draw(window,offset_x)
 
         
