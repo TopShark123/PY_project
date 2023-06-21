@@ -55,24 +55,6 @@ def draw_game_win_screen():
    window.blit(quit_button, (WIDTH/2 - quit_button.get_width()/2, HEIGHT/2 + quit_button.get_height()/2))
    pygame.display.update()
 
-def get_block(size):
-    path = join("assets", "Terrain", "Terrain.png")
-    image = pygame.image.load(path).convert_alpha()
-    surface = pygame.Surface((size, size), pygame.SRCALPHA, 32)
-    rect = pygame.Rect(96, 0, size, size)
-    surface.blit(image, (0, 0), rect)
-    return pygame.transform.scale2x(surface)
-
-def get_trap(width, height):
-    path = join("assets","Traps", "Spikes", "Idle.png")
-    image = pygame.image.load(path).convert_alpha()
-    surface = pygame.Surface((width, height), pygame.SRCALPHA, 32)
-    rect = pygame.Rect(96, 0, width, height)
-    surface.blit(image, (0, 0), rect)
-    return pygame.transform.scale2x(surface)
-
-def flip(sprites):
-    return [pygame.transform.flip(sprite, True, False) for sprite in sprites]
 
 
 def get_background(name):
@@ -98,11 +80,6 @@ def draw(window, background, bg_image, player, objects,offset_x,bar):
         
        
         bar.draw(window)
-
-       
-
-    
-       
 
 
     pygame.display.update()
