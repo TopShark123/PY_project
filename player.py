@@ -5,12 +5,6 @@ from os.path import isfile, join
 from healthbar import HealthBar
 from fire import Fire
 
-
-bar = HealthBar(0,0,200,20,100)
-
-
-
-
 WIDTH, HEIGHT = 800,600
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 
