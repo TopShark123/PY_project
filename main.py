@@ -74,12 +74,6 @@ def get_trap(width, height):
 def flip(sprites):
     return [pygame.transform.flip(sprite, True, False) for sprite in sprites]
 
-def quit_game():
-    time.sleep(3)
-    pygame.quit()
-    quit()
-
-
 
 def get_background(name):
     image = pygame.image.load(join("assets","Background",name))
@@ -166,7 +160,7 @@ def collide(player, objects, dx):
 
 def main(window):
     clock = pygame.time.Clock()
-    background, bg_color= get_background("Yellow.png")
+    background, bg_color=  get_background("Yellow.png")
     block_size = 94
 
     #spike =Trap(100,HEIGHT - block_size,16,8)
@@ -174,6 +168,7 @@ def main(window):
     player = Player(100,100,50,50,100)
 
     fire = Fire(1000,HEIGHT -block_size - 64,16,32)
+    fire14 = Fire(968,HEIGHT -block_size - 64,16,32)
     fire2 = Fire(1032,HEIGHT -block_size - 64,16,32)
     fire3 = Fire(2264,HEIGHT -4*block_size - 64,16,32)
     fire4 = Fire(2232,HEIGHT -4*block_size - 64,16,32)
@@ -186,6 +181,7 @@ def main(window):
     fire11 = Fire(625,HEIGHT -5*block_size - 64,16,32)
     fire12 = Fire(6432,HEIGHT -block_size - 64,16,32)
     fire13 = Fire(6464,HEIGHT -block_size - 64,16,32)
+    fire15 = Fire(1500,HEIGHT -4*block_size - 64,16,32)
     end = End(6900,HEIGHT - 155,100,100)
     start = Start(20,HEIGHT - 4*block_size - 155,100,100)
     
@@ -207,6 +203,8 @@ def main(window):
     fire11.on()
     fire12.on()
     fire13.on()
+    fire14.on()
+    fire15.on()
  
    
     
@@ -336,7 +334,7 @@ def main(window):
                        Block(block_size * 75, HEIGHT - block_size * 4, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 5, block_size),
                        Block(block_size * 75, HEIGHT - block_size * 6, block_size),
-                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,fire12,fire13,end,start]
+                       fire,fire2,fire3,fire4,fire5,fire6,fire7,fire8,fire9,fire10,fire11,fire12,fire13,fire14,fire15,end,start]
     
 
     def restart_game():
@@ -416,6 +414,8 @@ def main(window):
             fire11.loop()
             fire12.loop()
             fire13.loop()
+            fire14.loop()
+            fire15.loop()
             
             
 
